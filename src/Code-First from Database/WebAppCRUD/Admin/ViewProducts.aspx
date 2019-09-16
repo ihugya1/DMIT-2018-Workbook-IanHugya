@@ -21,7 +21,18 @@
                         DataValueField="SupplierID"></asp:DropDownList>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField DataField="CategoryID" HeaderText="Category" SortExpression="CategoryID"></asp:BoundField>
+            <asp:TemplateField HeaderText="Category">
+                <ItemTemplate>
+                    <asp:DropDownList ID="CatgoriesDropDown"
+                        runat="server" 
+                        Enabled="false"
+                        SelectedValue="<%# Item.CategoryID %>"
+                        DataSourceID="CategoriesDataSource"
+                        DataTextField="CategoryName"
+                        DataValueField="CategoryID"></asp:DropDownList>
+                </ItemTemplate>
+            </asp:TemplateField>
+            
             <asp:BoundField DataField="QuantityPerUnit" HeaderText="Qty / Unit" SortExpression="QuantityPerUnit"></asp:BoundField>
             <asp:BoundField DataField="MinimumOrderQuantity" HeaderText="Min Qty" SortExpression="MinimumOrderQuantity"></asp:BoundField>
             <asp:BoundField DataField="UnitPrice" HeaderText="Unit Price" SortExpression="UnitPrice"></asp:BoundField>

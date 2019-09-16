@@ -10,9 +10,10 @@
         </LayoutTemplate>
         <ItemTemplate>
             <div>
+                  <img src='<%# "data:" + Item.PictureMimeType + ";base64," + Convert.ToBase64String(Item.Picture) %>' alt="Alternate Text" width="50px" />
                 <b><%# Item.CategoryName %></b>
                 <i><%# Item.Description %></i>
-                <img src='<%# "data:" + Item.PictureMimeType + ";base64," + Convert.ToBase64String(Item.Picture) %>' alt="Alternate Text" />
+              
             </div>
         </ItemTemplate>
     </asp:ListView>

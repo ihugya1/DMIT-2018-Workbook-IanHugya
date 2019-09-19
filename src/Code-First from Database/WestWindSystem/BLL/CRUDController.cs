@@ -28,8 +28,18 @@ namespace WestWindSystem.BLL
         {
             using (var context = new WestWindContext())
             {
-                return context.Suppliers.ToList();
+                //.Include(string) will "eager load" the Address information
+                // for the supplier
+                return context.Suppliers.Include(nameof(Supplier.Address)).ToList();
 
+            }
+        }
+        [DataObjectMethod(DataObjectMethodType.Insert)]
+        public void AddSupplier(Supplier item)
+        {
+            using (var context = new WestWindContext()){
+                    context.Suppliers.Add(item);
+                    context.SaveChanges();
             }
         }
         #endregion

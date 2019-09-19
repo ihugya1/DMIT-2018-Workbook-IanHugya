@@ -26,7 +26,7 @@
 
         <ItemTemplate>
             <tr>
-                <td><%# Item.SupplierID %></td>
+                <td><asp:LinkButton ID="EditSupplier" runat="server" CssClass="btn btn-info glyphicon glyphicon-pencil" CommandName="Edit"></asp:LinkButton>Edit</td>
                 <td><%# Item.CompanyName %></td>
                 <td>
                     <b><%# Item.ContactName %></b>
@@ -56,14 +56,14 @@
         <InsertItemTemplate>
             <tr class="bg-info">
                 <th>
-                    <asp:LinkButton ID="AddSupplier" runat="server" CssClass="btn btn-success glyphicon glyphicon-plus">Add</asp:LinkButton>
+                    <asp:LinkButton ID="AddSupplier" runat="server" CssClass="btn btn-success glyphicon glyphicon-plus" CommandName="Insert">Add</asp:LinkButton>
                 </th>
                 <th><asp:TextBox ID="CompanyName" runat="server" Text="<%#BindItem.CompanyName %>" placeholder="Enter company name"></asp:TextBox></th><br />
                 <th>  <asp:TextBox ID="Contact" runat="server" Text="<%#BindItem.ContactName %>" placeholder="Contact Name"></asp:TextBox><br />
                  <asp:TextBox ID="JobTitle" runat="server" Text="<%#BindItem.ContactTitle %>" placeholder="Contact Title"></asp:TextBox><br />
                  <asp:TextBox ID="Email" runat="server" Text="<%#BindItem.Email %>" placeholder="Email" TextMode="Email"></asp:TextBox></th>
                  <th>
-                     <asp:DropDownList runat="server" ID="Address" DataSourceID="AddressDataSource" DataTextField="Address1" DataValueField="AddressID">
+                     <asp:DropDownList runat="server" ID="Address" DataSourceID="AddressDataSource" AppendDataBoundItems="true" DataTextField="Address1" DataValueField="AddressID" SelectedValue="<%#BindItem.AddressID %>">
                          <asp:ListItem Value="">[Select address on file]</asp:ListItem>
                      </asp:DropDownList></th>
                  <th>
@@ -72,8 +72,28 @@
                  </th>
             </tr>
         </InsertItemTemplate>
+
+        <EditItemTemplate>
+            <tr class="bg-success">
+                <th>
+                    <asp:LinkButton ID="UpdateSupplier" runat="server" CssClass="btn btn-success glyphicon glyphicon-ok" CommandName="Update">Save</asp:LinkButton>
+                </th>
+                <th><asp:TextBox ID="CompanyName" runat="server" Text="<%#BindItem.CompanyName %>" placeholder="Enter company name"></asp:TextBox></th><br />
+                <th>  <asp:TextBox ID="Contact" runat="server" Text="<%#BindItem.ContactName %>" placeholder="Contact Name"></asp:TextBox><br />
+                 <asp:TextBox ID="JobTitle" runat="server" Text="<%#BindItem.ContactTitle %>" placeholder="Contact Title"></asp:TextBox><br />
+                 <asp:TextBox ID="Email" runat="server" Text="<%#BindItem.Email %>" placeholder="Email" TextMode="Email"></asp:TextBox></th>
+                 <th>
+                     <asp:DropDownList runat="server" ID="Address" DataSourceID="AddressDataSource" AppendDataBoundItems="true" DataTextField="Address1" DataValueField="AddressID" SelectedValue="<%#BindItem.AddressID %>">
+                         <asp:ListItem Value="">[Select address on file]</asp:ListItem>
+                     </asp:DropDownList></th>
+                 <th>
+                 <asp:TextBox ID="Phone" runat="server" Text="<%#BindItem.Phone %>" placeholder="Phone" TextMode="Phone"></asp:TextBox><br />
+                 <asp:TextBox ID="Fax" runat="server" Text="<%#BindItem.Fax %>" placeholder="Fax" TextMode="Phone"></asp:TextBox></th>
+                 </th>
+            </tr>
+        </EditItemTemplate>
     </asp:ListView>
 
     <asp:ObjectDataSource runat="server" ID="AddressDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="ListAddresses" TypeName="WestWindSystem.BLL.CRUDController" />
-    <asp:ObjectDataSource ID="SuppliersDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListSuppliers" TypeName="WestWindSystem.BLL.CRUDController" DataObjectTypeName="WestWindSystem.Entities.Supplier" InsertMethod="AddSupplier"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="SuppliersDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListSuppliers" TypeName="WestWindSystem.BLL.CRUDController" DataObjectTypeName="WestWindSystem.Entities.Supplier" InsertMethod="AddSupplier" UpdateMethod="UpdateSupplier"></asp:ObjectDataSource>
 </asp:Content>

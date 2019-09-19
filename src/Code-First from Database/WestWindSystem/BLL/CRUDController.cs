@@ -42,6 +42,15 @@ namespace WestWindSystem.BLL
                     context.SaveChanges();
             }
         }
+        [DataObjectMethod(DataObjectMethodType.Update)]
+        public void UpdateSupplier(Supplier item)
+        {
+            using (var context = new WestWindContext())
+            {
+                context.Suppliers.Add(item);
+                context.SaveChanges();
+            }
+        }
         #endregion
 
         #region Categories CRUD

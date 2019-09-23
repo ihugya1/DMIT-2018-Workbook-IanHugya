@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,5 +14,12 @@ namespace WebAppCRUD.Admin
         {
 
         }
+
+      protected void CheckForExceptions(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            MessageUserControl.HandleDataBoundException(e);
+        }
+
+
     }
 }

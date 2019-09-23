@@ -1,12 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewSuppliers.aspx.cs" Inherits="WebAppCRUD.Admin.ViewSuppliers" %>
 
+<%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1>View Suppliers</h1>
-
+    <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
     <asp:ListView ID="SupplierListView" runat="server"
         DataSourceID="SuppliersDataSource"
         InsertItemPosition="FirstItem"
-        ItemType="WestWindSystem.Entities.Supplier">
+        ItemType="WestWindSystem.Entities.Supplier" 
+       
+        >
         <LayoutTemplate>
             <table class="table table-hover table-condensed">
                 <thead>
@@ -95,5 +100,5 @@
     </asp:ListView>
 
     <asp:ObjectDataSource runat="server" ID="AddressDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="ListAddresses" TypeName="WestWindSystem.BLL.CRUDController" />
-    <asp:ObjectDataSource ID="SuppliersDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListSuppliers" TypeName="WestWindSystem.BLL.CRUDController" DataObjectTypeName="WestWindSystem.Entities.Supplier" InsertMethod="AddSupplier" UpdateMethod="UpdateSupplier"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="SuppliersDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListSuppliers" TypeName="WestWindSystem.BLL.CRUDController" DataObjectTypeName="WestWindSystem.Entities.Supplier" InsertMethod="AddSupplier" UpdateMethod="UpdateSupplier" OnInserted="CheckForExceptions" OnUpdated="CheckForExceptions" OnDeleted="CheckForExceptions" ></asp:ObjectDataSource>
 </asp:Content>

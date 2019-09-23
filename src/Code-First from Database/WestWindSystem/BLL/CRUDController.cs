@@ -47,7 +47,7 @@ namespace WestWindSystem.BLL
         {
             using (var context = new WestWindContext())
             {
-                context.Suppliers.Add(item);
+                //context.Suppliers.(item);
                 context.SaveChanges();
             }
         }

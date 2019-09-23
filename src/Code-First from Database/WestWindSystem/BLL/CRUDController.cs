@@ -47,7 +47,18 @@ namespace WestWindSystem.BLL
         {
             using (var context = new WestWindContext())
             {
-                //context.Suppliers.(item);
+                var existing = context.Entry(item);
+                existing.State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+        [DataObjectMethod(DataObjectMethodType.Delete)]
+        public void DeleteSupplier(Supplier item)
+        {
+            using (var context = new WestWindContext())
+            {
+                var existing = context.Suppliers.Find(item.SupplierID);
+                context.Suppliers.Remove(item);
                 context.SaveChanges();
             }
         }

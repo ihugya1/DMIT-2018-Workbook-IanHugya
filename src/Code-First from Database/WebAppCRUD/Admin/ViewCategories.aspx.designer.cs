@@ -22,6 +22,33 @@ namespace WebAppCRUD.Admin {
         protected global::System.Web.UI.WebControls.ListView CategoryListView;
         
         /// <summary>
+        /// itemPlaceholder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow itemPlaceholder;
+        
+        /// <summary>
+        /// EditSupplier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton EditSupplier;
+        
+        /// <summary>
+        /// Delete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton Delete;
+        
+        /// <summary>
         /// CategoryDataSource control.
         /// </summary>
         /// <remarks>

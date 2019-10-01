@@ -9,7 +9,7 @@
     <asp:ListView runat="server" ID="AddressListView" DataSourceID="AddressDataSource" InsertItemPosition="FirstItem" DataKeyNames="AddressID">
        
         <EditItemTemplate>
-            <tr style="">
+            <tr class="bg-warning">
                 <td>
                     <asp:Button runat="server" CommandName="Update" Text="Update" ID="UpdateButton" CssClass="btn btn-primary" />
                     <asp:Button runat="server" CommandName="Cancel" Text="Cancel" ID="CancelButton" CssClass="btn btn-default" />

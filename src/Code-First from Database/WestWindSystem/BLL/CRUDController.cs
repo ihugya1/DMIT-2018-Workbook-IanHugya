@@ -111,7 +111,7 @@ namespace WestWindSystem.BLL
             using (var context = new WestWindContext())
             {
                 var existing = context.Addresses.Find(item.AddressID);
-                context.Addresses.Remove(item);
+                context.Addresses.Remove(existing);
                 context.SaveChanges();
             }
         }

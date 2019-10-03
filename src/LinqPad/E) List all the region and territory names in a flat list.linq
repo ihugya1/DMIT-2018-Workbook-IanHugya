@@ -6,14 +6,12 @@
   </Connection>
 </Query>
 
-//D) List all the regions and the number of territories in each region
-from person in Regions
+//E) List all the region and territory names in a "flat" list
 
-
+from data in Territories
 
 select new
-
 {
-  regionName  = person.RegionDescription ,
-  person.Territories.Count
+Region = data.Region.RegionDescription,
+Territory = data.TerritoryDescription 
 }

@@ -1,0 +1,15 @@
+POCO = Plain Old CLR Object = Properties only - Primitive data types only
+CLR Common Language RunTime
+DTO = Data Transfer Object = Just like a POCO except data types can be other classes
+CBO - Like a DTO but with methods
+
+from purchase in Orders
+where purchase.CustomerID==CID
+select new ~~~~
+{
+~~~ = purchase.OrderID,
+~~~ = purchase.OrderData,
+~~~ = purchase.Employee.FirstName,
+~~~ = purchase.Employee.LastName
+
+OrderTotal = purchase.OrderDetails.Sum(x => x.Quantity * x.UnitPrice)

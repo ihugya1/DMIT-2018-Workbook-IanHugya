@@ -36,10 +36,10 @@ namespace WebApp.Admin.Security
 
             #region Seed the users
             //Create a user 
-            var adminUser = new ApplicationUser
+            var adminUser = new ApplicationUserS
             {
-                UserName="WebAdmin",
-                Email="Fake@Hackers.ru",
+                UserName=AdminUserName,
+                Email=AdminEmail,
                 EmailConfirmed=true
             };
             //Get the BLL manager

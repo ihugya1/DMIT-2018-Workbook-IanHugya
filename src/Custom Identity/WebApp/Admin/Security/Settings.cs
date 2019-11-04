@@ -15,7 +15,7 @@ namespace WebApp.Admin.Security
     /// <appSettings> section.
     /// 
     /// </summary>
-    public static class Settings //there is no need to instantiate this (create a new instance)
+    internal static class Settings //there is no need to instantiate this (create a new instance)
     {
         //using static System.Configuration.ConfigurationManager;
         // public static string AdminRole => ConfigurationManager.AppSettings["adminRole"];

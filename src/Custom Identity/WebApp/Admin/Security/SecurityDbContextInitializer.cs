@@ -36,7 +36,7 @@ namespace WebApp.Admin.Security
 
             #region Seed the users
             //Create a user 
-            var adminUser = new ApplicationUserS
+            var adminUser = new ApplicationUser
             {
                 UserName=AdminUserName,
                 Email=AdminEmail,
@@ -49,7 +49,7 @@ namespace WebApp.Admin.Security
             if (result.Succeeded)
             {
                 //get the Id that was generated for the user we created/added
-                var found = userManager.FindByName("WebAdmin").Id;
+                var found = userManager.FindByName(AdminUserName).Id;
                 // Add the user to the Administrators role
                 userManager.AddToRole(found, AdminRole);
             }

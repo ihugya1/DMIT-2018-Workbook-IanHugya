@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using static WebApp.Admin.Security.Settings;
 using WebApp.Models;
 //You can learned about database Initialiation stratedgies  on entityframeworktutorial.net
 namespace WebApp.Admin.Security
@@ -27,8 +28,10 @@ namespace WebApp.Admin.Security
             // The IdentityRole is an entity class that represents a security role.
 
             //Hard-coded security roles (move later on)
-            roleManager.Create(new IdentityRole { Name = "Administrators" });
-            roleManager.Create(new IdentityRole { Name = "Registered Users" });
+            // roleManager.Create(new IdentityRole { Name = "Registered Users" });
+            foreach (var role in DefaultSecurityRoles)
+            roleManager.Create(new IdentityRole { Name = role });
+           
             #endregion
 
             #region Seed the users
@@ -48,7 +51,7 @@ namespace WebApp.Admin.Security
                 //get the Id that was generated for the user we created/added
                 var found = userManager.FindByName("WebAdmin").Id;
                 // Add the user to the Administrators role
-                userManager.AddToRole(found, "Administrators");
+                userManager.AddToRole(found, AdminRole);
             }
             //Create the oher usres accounts for all the people in my Demo Database
             var demoManager = new DemoController();
@@ -66,7 +69,7 @@ namespace WebApp.Admin.Security
                 if (result.Succeeded)
                 {
                     var userId = userManager.FindByName(user.UserName).Id;
-                    userManager.AddToRole(userId, "Registered Users");
+                    userManager.AddToRole(userId, UserRole);
                 }
             }
 

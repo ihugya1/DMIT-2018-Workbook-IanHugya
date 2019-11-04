@@ -45,11 +45,11 @@ namespace WebApp.Admin.Security
             //Get the BLL manager
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
             // - the ApplicationuserManager is a BLL class in the IdentityConfig.cs file
-            var result = userManager.Create(adminUser, "Pa$$w0rd");
+            var result = userManager.Create(adminUser, TempPassword);
             if (result.Succeeded)
             {
                 //get the Id that was generated for the user we created/added
-                var found = userManager.FindByName(AdminUserName).Id;
+                var found = userManager.FindByName("WebAdmin").Id;
                 // Add the user to the Administrators role
                 userManager.AddToRole(found, AdminRole);
             }
@@ -65,7 +65,7 @@ namespace WebApp.Admin.Security
                     EmailConfirmed = true,
                     PersonId = person.PersonID
                 };
-                result = userManager.Create(user, "Pa$$word1");
+                result = userManager.Create(user, TempPassword);
                 if (result.Succeeded)
                 {
                     var userId = userManager.FindByName(user.UserName).Id;

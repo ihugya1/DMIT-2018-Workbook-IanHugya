@@ -22,7 +22,19 @@ var result = from ord in Orders
 	ShipToName = ord.ShipName,
 	OrderDate = ord.OrderDate.Value,
 	RequiredBy = ord.RequiredDate.Value,
-	// OutstandingItems
+	 OutstandingItems = from detail in ord.OrderDetails 
+	 					select new OrderProductInformation 
+						{
+						ProductId= detail.ProductID,
+						ProductName = detail.Product.ProductName,
+						Qty = detail.Quantity,
+						QtyPerUnit = detail.Product.QuantityPerUnit,
+						//TODO
+						//Outstanding = (from ship in detail.Order.Shipments
+						//				from item in ship.ManifestItems
+						//				where item.ProductID == detail.ProductID
+						//				select item.ShipQuantity)ToList().Sum()
+						},
 	//ord.Customer.Address,
 	//note to self: if there is a shipto address, use that, otherwise use the customer address
 	FullShippingAddress = ord.ShipAddressID.HasValue

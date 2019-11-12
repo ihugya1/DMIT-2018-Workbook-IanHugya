@@ -10,10 +10,10 @@
 void Main()
 {
 	int supplier; // 1,2,7,8,16,19
-	Scratchpad();
+	Scratchpad(8);
 	
 }
-void Scratchpad(){
+void Scratchpad(int supplierID){
 var result = from ord in Orders
 	where !ord.Shipped // Still items to be shipped
 	&& ord.OrderDate.HasValue //The order has been placed and is ready to ship
@@ -22,7 +22,8 @@ var result = from ord in Orders
 	ShipToName = ord.ShipName,
 	OrderDate = ord.OrderDate.Value,
 	RequiredBy = ord.RequiredDate.Value,
-	 OutstandingItems = from detail in ord.OrderDetails 
+	 OutstandingItems = from detail in ord.OrderDetails
+	 					where detail.Product.SupplierID == supplierID
 	 					select new OrderProductInformation 
 						{
 						ProductId= detail.ProductID,

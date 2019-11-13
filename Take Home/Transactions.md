@@ -6,26 +6,30 @@
 
 Suppliers will be interacting with a page that shows the following information.
 
-![Mockup](./Shipping-Orders.svg)
+![Mockup](./OLTP-Planning-Exercise.png)
 
 The information shown here will be displayed in a **ListView**, using the *EditItemTemplate* as the part that shows the details for a given order.
 
 ### Events and Interactions
 
-![Mockups with Labels](./Shipping-Orders-Plan.svg)
+![Mockups with Labels](./Legend.png)
 
 - ![](1.svg) - **Page_Load** event
   - ![](A.svg) - Supplier/Contact names obtained from who the logged-in user is.
-  - ![](B.svg) - Load the ListView data
-    - **`List<OutstandingOrder> OrderProcessingController.LoadOrders(SupplierID)`**
-  - ![](C.svg) - Load the list of shippers
-    - **`List<ShipperSelection> OrderProcessingController.ListShippers()`**
+  - **`List<Pickers> PickedOrderProcessingController.ListPickers()`**
+  - ![](B.svg) - Clerk enters in the Order Number
+    - **`List<Orders> PickedOrderProcessingController.ListOrders(orderNumber)`**
+  - ![](C.svg) - Customer names obtained from the Order Number Control.
+    - **`List<OrderSelection> PickedOrderProcessingController.ListCustomers(orderNumber)`**
+  - ![](D.svg) - Customer Phone Number obtained from the Order Number Control.
+    - **`List<OrderSelection> PickedOrderProcessingController.ListCustomers(orderNumber)`**
 - ![](2.svg) - **EditCommand** click event
   - Default EditCommand behaviour of the ListView
-  - `<EditItemTemplate>` will display the extended information of the Products List ![](D.svg) and other order information.
-- ![](3.svg) - **ShipOrder** click
-  - Use a custom command name of "ShipOrder" and handle in the ListView's ItemCommand event.
-  - Gather information from the form for the products to be shipped and the shipping information. This is sent to the **`void OrderProcessingController.ShipOrder(int orderId, ShippingDirections shipping, List<ProductShipment> products)`**
+  - `<EditItemTemplate>` will display the extended information of the Orders List ![](E.svg) and other order information.
+- ![](3.svg) - **ShipOrder** click 
+    - ![](F.svg) - Customer/Order names obtained from the  OrderNumber and Customer Name controls
+  - Use a custom command name of "SavePickedOrder" and handle in the ListView's ItemCommand event.
+  - Gather information from the form for the products to be shipped and the shipping information. This is sent to the **`void OrderProcessingController.SavePickedOrder(int orderNumber)`**
 
 ## POCOs/DTOs
 

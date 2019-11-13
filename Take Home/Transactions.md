@@ -87,13 +87,12 @@ All product shipments are handled by the **`PickedOrderProcessingController`**. 
   - **Validation:**
     - Make sure the OrderNumber exists, otherwise throw exception
   - Query for outstanding orders, getting data from the following tables:
-    - TODO: List table names
 - **`List<Orders> PickedOrderProcessingController.ListOrders(orderNumber)`**
   - Queries for all the shippers.
 - **`void OrderProcessingController.SavePickedOrder(int orderNumber)`**
   - **Validation:**
     - OrderId must be valid
-    - products cannot be an empty list
+    - PickedOrder cannot be an empty list
     - Products identified must be on the order
     - Quantity must be greater than zero and less than or equal to the quantity outstanding
   - Processing (tables/data that must be updated/inserted/deleted/whatever)

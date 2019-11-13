@@ -38,36 +38,33 @@ The POCOs/DTOs are simply classes that will hold our data when we are performing
 ### Queries
 
 ```csharp
-public class ShipperSelection
+public class PickerSelection
 {
     public int ShipperId { get; set; }
-    public string Shipper { get; set; }
+    public string Picker { get; set; }
 }
 ```
 
 ```csharp
-public class OutstandingOrder
+public class CustomerInfo
 {
-    public int OrderId { get; set; }
-    public string ShipToName { get; set; }
-    public DateTime OrderDate { get; set; }
-    public DateTime RequiredBy { get; set; }
-    public TimeSpan DaysRemaining { get; } // Calculated
-    public IEnumerable<OrderProductInformation> OutstandingItems { get; set; }
-    public string FullShippingAddress { get; set; }
-    public string Comments { get; set; }
+    public int OrderNumber { get; set; }
+    public string CustomerName { get; set; }
+    public int PhoneNumber { get; set; }
 }
 ```
+```csharp
 
 ```csharp
 public class OrderProductInformation
 {
+    public string ProductDescription {get;set;}
     public int ProductId {get;set;}
-    public string ProductName {get;set;}
-    public short Qty {get;set;}
-    public string QtyPerUnit {get;set;}
-    public short Outstanding {get;set;}
-    // NOTE: Outstanding <= OrderDetails.Quantity - Sum(ManifestItems.ShipQuantity) for that product/order
+    public short OrderedQty {get;set;}
+    public string CustomerComments {get;set;}
+    public short QtyPicked {get;set;}
+    public string PickingIssues {get;set;}
+    
 }
 ```
 

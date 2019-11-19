@@ -13,7 +13,8 @@
 
             <asp:ListView ID="CurrentOrders" runat="server"
                 DataSourceID="OrdersDataSource"
-                ItemType="WestWindSystem.DataModels.OutstandingOrder">
+                ItemType="WestWindSystem.DataModels.OutstandingOrder"
+                OnItemCommand="CurrentOrders_ItemCommand">
                 <EditItemTemplate>
                     <tr class="bg-info">
                         <td>
@@ -39,7 +40,7 @@
                                 DataSourceID="ShippersDataSource"
                                 DataTextField="Shipper" DataValueField="ShipperId"
                                 AppendDataBoundItems="true">
-                                <asp:ListItem Value="">[Select a Shipper]</asp:ListItem>
+                                <asp:ListItem Value="0">[Select a Shipper]</asp:ListItem>
                             </asp:DropDownList>
                             <asp:GridView ID="ProductsGridView" runat="server"
                                 CssClass="table table-hover table-condensed"
@@ -54,6 +55,7 @@
                                     <asp:BoundField DataField="Outstanding" HeaderText="Outstanding" />
                                     <asp:TemplateField HeaderText="Ship Quantity">
                                         <ItemTemplate>
+                                            <asp:HiddenField ID="ProdId" runat="server" Value="<%# Item.ProductId %>" />
                                             <asp:TextBox ID="ShipQuantity" runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>

@@ -88,7 +88,49 @@ namespace WestWindSystem.BLL
         #region Commands
         public void ShipOrder(int orderId, ShippingDirections shipping, List<ProductShipment> products)
         {
-            throw new NotImplementedException();
+            using (var context = new WestWindContext())
+            {
+                //TODO: Validation
+                var existingOrder = context.Orders.Find(orderId);
+                // a) OrderId must be valid
+                if(existingOrder == null)
+                {
+                    throw new Exception("Order does not exist");
+                }
+                if (existingOrder.Shipped)
+                {
+                    throw new Exception("This order has already been completed");
+                }
+                if (!existingOrder.OrderDate.HasValue)
+                {
+                    throw new Exception("This order is not ready to be shipped (no order date has beens specified)");
+                }
+                // b) products cannot be an empty list
+                if(products == null || !products.Any()){
+                    throw new Exception("No products identified for shipping");
+                }
+                // c) products identified must be on the order
+                foreach(var item in products)
+                {
+                    if (item == null) throw new Exception("Blank item listed in products to be shipped");
+                    if (!existingOrder.OrderDetails.Any(x => x.ProductID == item.ProductId)) throw new Exception($"The product {item.ProductId} does not exist on the order");
+                    // TODO: d) quantity must be greated than zero and less than or equal to the quantity outstanding
+                }
+                // e) shipper must exist
+                if (shipping == null)
+                {
+                    throw new Exception("No shipping details provided");
+                }
+                var shipper = context.Shippers.Find(shipping.ShipperId);
+                if (shipper == null)
+                {
+                    throw new Exception("Invalid shipper ID");
+                }
+                // f) freight charge must be either null or no charge or > 0
+                //todo Q) Should i just convert $0 charge to a null
+                if (shipping.FreightCharge.HasValue && shipping.FreightCharge <= 0) throw new Exception("Freight charge must be either a positive value or no charge");
+              
+            }
             // TODO: Validation:
             /*Validation:
                 OrderId must be valid

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WestWindSystem.DAL;
 using WestWindSystem.DataModels;
+using WestWindSystem.Entities;
 
 namespace WestWindSystem.BLL
 {
@@ -93,7 +94,7 @@ namespace WestWindSystem.BLL
                 //TODO: Validation
                 var existingOrder = context.Orders.Find(orderId);
                 // a) OrderId must be valid
-                if(existingOrder == null)
+                if (existingOrder == null)
                 {
                     throw new Exception("Order does not exist");
                 }
@@ -106,11 +107,12 @@ namespace WestWindSystem.BLL
                     throw new Exception("This order is not ready to be shipped (no order date has beens specified)");
                 }
                 // b) products cannot be an empty list
-                if(products == null || !products.Any()){
+                if (products == null || !products.Any())
+                {
                     throw new Exception("No products identified for shipping");
                 }
                 // c) products identified must be on the order
-                foreach(var item in products)
+                foreach (var item in products)
                 {
                     if (item == null) throw new Exception("Blank item listed in products to be shipped");
                     if (!existingOrder.OrderDetails.Any(x => x.ProductID == item.ProductId)) throw new Exception($"The product {item.ProductId} does not exist on the order");
@@ -129,23 +131,39 @@ namespace WestWindSystem.BLL
                 // f) freight charge must be either null or no charge or > 0
                 //todo Q) Should i just convert $0 charge to a null
                 if (shipping.FreightCharge.HasValue && shipping.FreightCharge <= 0) throw new Exception("Freight charge must be either a positive value or no charge");
-              
+
+
+
+                //  Processing
+                // 1) Create new Shipment
+                var ship = new Shipment
+                {
+                    OrderID = orderId,
+                    ShipVia = shipping.ShipperId,
+                    TrackingCode = shipping.TrackingCode,
+                    FreightCharge = shipping.FreightCharge.HasValue ? shipping.FreightCharge.Value : 0,
+                    ShippedDate = DateTime.Now
+                };
+                // 2) Add all manifest items
+                foreach(var item in products)
+                {
+                    ship.ManifestItems.Add(new ManifestItem
+                    {
+                        ProductID = item.ProductId,
+                        ShipQuantity = (short)item.ShipQuantity
+                    });
+                }
+                // TODO: 3) Check if order is complete; if so, update Order.Shipped
+                // 4) Add the shipment to the database context
+                context.Shipments.Add(ship);
+                //5) Save the changes
+                context.SaveChanges();
+                /*Processing (tables/data that must be updated/inserted/deleted/whatever)
+                    Create new Shipment
+
+                    Check if order is complete; if so, update Order.Shipped
+                 */
             }
-            // TODO: Validation:
-            /*Validation:
-                OrderId must be valid
-                products cannot be an empty list
-                Products identified must be on the order
-                Quantity must be greater than zero and less than or equal to the quantity outstanding
-                Shipper must exist
-                Freight charge must either be null (no charge) or > $0.00
-            */
-            // TODO: Processing
-            /*Processing (tables/data that must be updated/inserted/deleted/whatever)
-                Create new Shipment
-                Add all manifest items
-                Check if order is complete; if so, update Order.Shipped
-             */
         }
         #endregion
     }

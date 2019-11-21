@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebApp.Admin.Security;
+using WebApp.UserControls;
 using WestWindSystem.BLL;
 using WestWindSystem.DataModels;
 
@@ -84,10 +85,13 @@ namespace WebApp.Sales
                         }
                     }
                 }
-                //send the data into the bll
-                var controller = new OrderProcessingController();
-                controller.ShipOrder(orderId, shippingInfo, itemShipped);
-
+                MessageUserControl.TryRun(() =>
+                {
+                    //send the data into the bll
+                    var controller = new OrderProcessingController();
+                    controller.ShipOrder(orderId, shippingInfo, itemShipped);
+                }, "Success", "The order shipment information has been recorded");
+                
             }
         }
     }
